@@ -1,7 +1,9 @@
 {
-  "name": "$name$",
-  "version": "$version$",
+  "author": "Cesar Acual",
+  "description": "ACME Ecommerce webstore",
+  "private": true,
   "dependencies": {
-    $END$
+    "gulp": "~3.9.0",
+    "laravel-elixir": "~5.0.0"
   }
 }
