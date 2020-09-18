@@ -8,21 +8,12 @@
     <title>Admin Panel - @yield('title')</title>
 
     <link rel="stylesheet" href="/css/all.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 </head>
 <body>
 
-<div class="off-canvas position-left reveal-for-large" id="offCanvas" data-off-canvas>
-    <!-- Side bar -->
-    <ul class="vertical menu">
-        <li><a href="#">Foundation</a></li>
-        <li><a href="#">Dot</a></li>
-        <li><a href="#">ZURB</a></li>
-        <li><a href="#">Com</a></li>
-        <li><a href="#">Slash</a></li>
-        <li><a href="#">Sites</a></li>
-    </ul>
-    <!-- end Side bar -->
-</div>
+@include('includes.admin-sidebar')
 
 <div class="off-canvas-content" data-off-canvas-content>
     <!-- Your page content lives here -->
