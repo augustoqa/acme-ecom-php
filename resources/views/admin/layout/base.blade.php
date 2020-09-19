@@ -15,7 +15,7 @@
 
 @include('includes.admin-sidebar')
 
-<div class="off-canvas-content" data-off-canvas-content>
+<div class="off-canvas-content admin_title_bar" data-off-canvas-content>
     <!-- Your page content lives here -->
     <div class="title-bar">
         <div class="title-bar-left">
