@@ -10,6 +10,10 @@
             <br>
             <?php echo \App\Classes\Session::get('token'); ?>
 
+            <?php echo e(\App\Classes\Redirect::to('/')); ?>
+
+            <?php echo e($_SERVER['REQUEST_URI']); ?>
+
         </div>
     </div>
 

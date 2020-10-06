@@ -7,9 +7,6 @@
     <div class="dashboard">
         <div class="row expanded">
             <h1>Dashboard</h1>
-            {!! \App\Classes\CSRFToken::_token() !!}
-            <br>
-            {!! \App\Classes\Session::get('token') !!}
         </div>
     </div>
 
