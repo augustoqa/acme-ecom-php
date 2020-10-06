@@ -5,6 +5,8 @@
     <div class="dashboard">
         <div class="row expanded">
             <h1>Dashboard</h1>
+            <?php echo e($admin); ?>
+
         </div>
     </div>
 
