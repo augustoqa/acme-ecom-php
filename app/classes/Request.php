@@ -25,11 +25,46 @@ class Request
      * @param $key
      * @return mixed
      */
-    public function get($key)
+    public static function get($key)
     {
         $object = new static;
         $data = $object->all();
 
         return $data->$key;
+    }
+
+    /**
+     * check request availability
+     * 
+     * @param $key
+     * @return bool
+     */
+    public static function has($key)
+    {
+        return array_key_exists($key, self::all(true));
+    }
+
+    /**
+     * get request data
+     * 
+     * @param $key
+     * @param $value 
+     * @return string
+     */
+    public static function old($key, $value)
+    {
+        $object = new static;
+        $data = $object->all();
+        return isset($data->$key->$value) ? $data->$key->$value : '';
+    }
+
+    /**
+     * refresh request
+     */
+    public static function refresh()
+    {
+        $_POST = [];
+        $_GET = [];
+        $_FILES = [];
     }
 }

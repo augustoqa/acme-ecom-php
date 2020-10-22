@@ -24,7 +24,16 @@ class DashboardController extends BaseController
 
     public function get()
     {
-        $request = Request::get('posting');
-        var_dump($request->image->name);
+        Request::refresh();
+        $data = Request::old('post', 'product');
+        var_dump($data);
+
+        // if (Request::has('post')) {
+        //     $request = Request::get('post');
+        //     var_dump($request->product);
+        // } else {
+        //     var_dump('posting no exist');
+        // }
+
     }
 }
