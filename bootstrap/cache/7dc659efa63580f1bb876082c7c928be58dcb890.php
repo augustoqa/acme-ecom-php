@@ -5,15 +5,11 @@
     <div class="dashboard">
         <div class="row expanded">
             <h1>Dashboard</h1>
-            <?php echo \App\Classes\CSRFToken::_token(); ?>
-
-            <br>
-            <?php echo \App\Classes\Session::get('token'); ?>
-
-            <?php echo e(\App\Classes\Redirect::to('/')); ?>
-
-            <?php echo e($_SERVER['REQUEST_URI']); ?>
-
+            <form action="/admin" method="post" enctype="multipart/form-data">
+                <input type="text" name="product" value="testing">
+                <input type="file" name="image">
+                <input type="submit" value="Go" name="submit">
+            </form>
         </div>
     </div>
 
