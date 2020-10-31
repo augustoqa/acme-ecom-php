@@ -1,0 +1,1 @@
+<h1>Page not found</h1><?php /**PATH C:\laragon\www\acme-ecommerce\resources\views/errors/404.blade.php ENDPATH**/ ?>
