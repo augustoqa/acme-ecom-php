@@ -25,3 +25,15 @@ function make($filename, $data)
 
     return $content;
 }
+
+function slug($value)
+{
+    // remove all characters not in this list: underscore | letters | numbers | whitespace
+    $value = preg_replace('![^'.preg_quote('_').'\pL\pN\s]+!u', '', mb_strtolower($value));
+
+    // replace underscore and whitespace a dash -
+    $value = preg_replace('!['.preg_quote('-').'\s]+!u', '', mb_strtolower($value));
+
+    // remove whitespace
+    return trim($value, '-');
+}

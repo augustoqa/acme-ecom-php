@@ -7,6 +7,10 @@
             <h1>Product Category</h1>
         </div>
 
+        <?php if(isset($message)): ?>    
+        <p><?php echo e($message); ?></p>
+        <?php endif; ?>
+
         <div class="row expanded">
             <div class="small-12 medium-6 column">
                 <form action="" method="POST">
