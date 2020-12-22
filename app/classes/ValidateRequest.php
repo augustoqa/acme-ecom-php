@@ -7,6 +7,22 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class ValidateRequest
 {
+    private static $error = [];
+    private static $error_messages = [
+        'string'    => 'The :attribute field cannot contain number',
+        'required'  => 'The :attribute field is required',
+        'minLength' => 'The :attribute field must be a minimum of :policy characters',
+        'maxLength' => 'The :attribute field must be a maximum of :policy characters',
+        'mixed'     => 'The :attribute field can contain letters, numbers, dash and space only',
+        'number'    => 'The :attribute field cannot contain letters e.g. 20.0, 20',
+        'email'     => 'Email address is not valid',
+        'unique'    => 'That :attribute is already taken, please try another one'
+    ];
+
+    /**
+     * @param array $dataAndValues, column and value to validate
+     * @param array $policies, the rules that validation must satisfy
+     */
     public function abide(array $dataAndValues, array $policies)
     {
         foreach ($dataAndValues as $column => $value) {
@@ -21,12 +37,27 @@ class ValidateRequest
         }
     }
 
+    /**
+     * Perform validation for the data provided and set error messages
+     * @param array $data
+     */
     private static function doValidation(array $data)
     {
         $column = $data['column'];
         foreach ($data['policies'] as $rule => $policy) {
             $valid = \call_user_func_array([
                 self::class, $rule], [$column, $data['value'], $policy]);
+
+            if (!$valid) {
+                self::setError(
+                    str_replace(
+                        [':attribute', ':policy', '_'],
+                        [$column, $policy, ' '],
+                        self::$error_messages[$rule]
+                    ),
+                    $column
+                );
+            }
         }
     }
 
@@ -103,5 +134,37 @@ class ValidateRequest
             }
         }
         return true;
+    }
+
+    /**
+     * Set specific error
+     * @param $error
+     * @param null $key
+     */
+    private static function setError($error, $key = null)
+    {
+        if ($key) {
+            self::$error[$key][] = $error;
+        } else {
+            self::$error[] = $error;
+        }
+    }
+
+    /**
+     * return true if there is validation error
+     * @return bool
+     */
+    public function hasError()
+    {
+        return count(self::$error) > 0;
+    }
+
+    /**
+     * Return all validation errors
+     * @return array
+     */
+    public function getErrorMessages()
+    {
+        return self::$error;
     }
 }
