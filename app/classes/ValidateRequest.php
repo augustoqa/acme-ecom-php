@@ -7,6 +7,29 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class ValidateRequest
 {
+    public function abide(array $dataAndValues, array $policies)
+    {
+        foreach ($dataAndValues as $column => $value) {
+            if (\in_array($column, \array_keys($policies))) {
+                // do validation
+                self::doValidation([
+                    'column' => $column,
+                    'value' => $value,
+                    'policies' => $policies[$column]
+                ]);
+            }
+        }
+    }
+
+    private static function doValidation(array $data)
+    {
+        $column = $data['column'];
+        foreach ($data['policies'] as $rule => $policy) {
+            $valid = \call_user_func_array([
+                self::class, $rule], [$column, $data['value'], $policy]);
+        }
+    }
+
     /**
      * @param $column, field name or column
      * @param $value, value passed into the form

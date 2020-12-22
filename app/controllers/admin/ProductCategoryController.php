@@ -19,7 +19,10 @@ class ProductCategoryController
     {
         if (Request::has('post')) {
             $request = Request::get('post');
-            $data = ValidateRequest::number('name', $request->name, true);
+            var_dump($request);
+            exit();
+            $validator = new ValidateRequest;
+            $data = $validator->abide();
 
             if ($data) {
                 echo "All good"; exit;
