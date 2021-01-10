@@ -1,5 +1,7 @@
 <?php
 use Philo\Blade\Blade;
+use voku\helper\Paginator;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 function view($path, array $data = [])
 {
@@ -36,4 +38,16 @@ function slug($value)
 
     // remove whitespace
     return trim($value, '-');
+}
+
+function paginate($number_of_records, $total_records, $table_name, $object)
+{
+    $pages = new Paginator($number_of_records, 'p'); 
+    $pages->set_total($total_records);
+
+    $data = Capsule::select("SELECT * FROM $table_name ORDER BY created_at DESC " . $pages->get_limit());
+    $categories = $object->transform($data);
+    
+
+    return [$categories, $pages->page_links()];
 }

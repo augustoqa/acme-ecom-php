@@ -8,11 +8,16 @@ use App\Models\Category;
 
 class ProductCategoryController
 {
+    public $table_name = 'categories';
+
     public function show()
     {
-        $categories = Category::all();
+        $total = Category::all()->count();
+        $object = new Category;
 
-        return view('admin/products/categories', \compact('categories'));
+        list($categories, $links) = \paginate(2, $total, $this->table_name, $object);
+
+        return view('admin/products/categories', \compact('categories', 'links'));
     }
 
     public function store()
