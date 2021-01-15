@@ -9,9 +9,7 @@
             <h1>Product Category</h1>
         </div>
 
-        @isset($message)    
-        <p>{{ $message }}</p>
-        @endisset
+        @include('includes.message')
 
         <div class="row expanded">
             <div class="small-12 medium-6 column">

@@ -67,7 +67,7 @@ class ValidateRequest
      * @param $policy, the rule that we set e.g min = 5
      * @return bool, true | false
      */
-    protected function unique($column, $value, $policy)
+    protected static function unique($column, $value, $policy)
     {
         if ($value != null && ! empty(\trim($value))) {
             return ! Capsule::table($policy)

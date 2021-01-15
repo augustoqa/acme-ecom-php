@@ -9,15 +9,23 @@ use App\Models\Category;
 class ProductCategoryController
 {
     public $table_name = 'categories';
+    public $categories;
+    public $links;
 
-    public function show()
+    public function __construct()
     {
         $total = Category::all()->count();
         $object = new Category;
 
-        list($categories, $links) = \paginate(2, $total, $this->table_name, $object);
+        list($this->categories, $this->links) = \paginate(2, $total, $this->table_name, $object);
+    }
 
-        return view('admin/products/categories', \compact('categories', 'links'));
+    public function show()
+    {
+        return view('admin/products/categories', [
+            'categories' => $this->categories,
+            'links' => $this->links,
+        ]);
     }
 
     public function store()
@@ -34,8 +42,13 @@ class ProductCategoryController
                 $validate->abide($_POST, $rules);
 
                 if ($validate->hasError()) {
-                    var_dump($validate->getErrorMessages());
-                    exit;
+                    $errors = $validate->getErrorMessages();
+                    print_r($errors); exit();
+                    return view('admin/products/categories', [
+                        'categories' => $this->categories,
+                        'links' => $this->links,
+                        'errors' => $errors
+                    ]);
                 }
 
                 // process form data
@@ -44,9 +57,15 @@ class ProductCategoryController
                     'slug' => slug($request->name),
                 ]);
 
-                $categories = Category::all();
-                $message = 'Category Created';
-                return view('admin/products/categories', \compact('categories', 'message'));
+                $total = Category::all()->count();
+        
+                list($this->categories, $this->links) = \paginate(2, $total, $this->table_name, new Category);
+
+                return view('admin/products/categories', [
+                    'categories' => $this->categories,
+                    'links' => $this->links,
+                    'success' => 'Category Created'
+                ]);
             }
 
             throw new \Exception('Token mismatch');
